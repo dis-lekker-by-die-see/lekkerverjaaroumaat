@@ -17,7 +17,7 @@
 
 // // Submit button handler
 // async function submitPassword(): Promise<void> {
-//   console.log("Submit button clicked!"); // Debugging
+//   //console.log("Submit button clicked!"); // Debugging
 //   const password = (document.getElementById("password") as HTMLInputElement)
 //     .value;
 
@@ -45,9 +45,9 @@
 //     if (dropdown) {
 //       dropdown.value = "name"; // Set dropdown value to "Name"
 //       renderTable("name"); // Render the table sorted by "Name"
-//       console.log("Default order set to 'Name'.");
+//       //console.log("Default order set to 'Name'.");
 //     }
-//     // console.log("Default order set to 'Name'.");
+//     // //console.log("Default order set to 'Name'.");
 //   } catch (error) {
 //     console.error("Failed to fetch data:", error);
 //     alert("Invalid password or unable to fetch data.");
@@ -65,7 +65,7 @@
 //   if (!response.ok) throw new Error("Failed to fetch data");
 
 //   const data: Person[] = await response.json();
-//   console.log("Raw Data from decrypt.php:", data);
+//   //console.log("Raw Data from decrypt.php:", data);
 
 //   // Validate and sanitize fetched data
 //   people = data.map((person) => ({
@@ -74,7 +74,7 @@
 //     TOB: person.TOB || "00:00", // Default TOB to "00:00"
 //   }));
 
-//   console.log("Sanitized Data:", people); // Debug sanitized data
+//   //console.log("Sanitized Data:", people); // Debug sanitized data
 // }
 
 // // Render the table
@@ -108,7 +108,7 @@
 //     return 0;
 //   });
 
-//   console.log("Sorted people array:", people); // Debugging
+//   //console.log("Sorted people array:", people); // Debugging
 
 //   // Populate table
 //   people.forEach((person) => {
@@ -146,7 +146,7 @@ document
 
 // Submit button handler
 async function submitPassword(): Promise<void> {
-  console.log("Submit button clicked!"); // Debugging
+  //console.log("Submit button clicked!"); // Debugging
   const password = (document.getElementById("password") as HTMLInputElement)
     .value;
 
@@ -166,7 +166,7 @@ async function submitPassword(): Promise<void> {
     if (dropdown) {
       dropdown.value = "name"; // Set dropdown value to "Name"
       renderTable("name"); // Render the table sorted by "Name"
-      console.log("Default order set to 'Name'.");
+      //console.log("Default order set to 'Name'.");
     }
   } catch (error) {
     console.error("Failed to fetch data:", error);
@@ -180,7 +180,7 @@ async function fetchAndDecryptData(password: string): Promise<void> {
   if (!response.ok) throw new Error("Failed to fetch encrypted data");
 
   const encryptedData = await response.json();
-  console.log("Encrypted Data:", encryptedData);
+  //console.log("Encrypted Data:", encryptedData);
 
   const { salt, iv, ciphertext, tag } = encryptedData;
 
@@ -205,7 +205,7 @@ async function fetchAndDecryptData(password: string): Promise<void> {
   const decryptedData = await decryptData(key, decodedIV, combinedCiphertext);
   const data: Person[] = JSON.parse(new TextDecoder().decode(decryptedData));
 
-  console.log("Decrypted Data:", data);
+  //console.log("Decrypted Data:", data);
 
   // Validate and sanitize fetched data
   people = data.map((person) => ({
@@ -214,7 +214,7 @@ async function fetchAndDecryptData(password: string): Promise<void> {
     TOB: person.TOB || "00:00", // Default TOB to "00:00"
   }));
 
-  console.log("Sanitized Data:", people);
+  //console.log("Sanitized Data:", people);
 }
 
 // Derive encryption key from password and salt
@@ -292,7 +292,7 @@ function renderTable(order: "name" | "calendar" | "age"): void {
     return 0;
   });
 
-  console.log("Sorted people array:", people); // Debugging
+  //console.log("Sorted people array:", people); // Debugging
 
   // Populate table
   people.forEach((person) => {
@@ -377,6 +377,6 @@ document.getElementById("sort-order")?.addEventListener("change", (e) => {
     | "name"
     | "calendar"
     | "age";
-  console.log("Sort order changed to:", order); // Debugging
+  //console.log("Sort order changed to:", order); // Debugging
   renderTable(order); // Render table with the selected order
 });
