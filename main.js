@@ -25,7 +25,7 @@ let people = [];
 // Submit button handler
 function submitPassword() {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("Submit button clicked!"); // Debugging
+        //console.log("Submit button clicked!"); // Debugging
         const password = document.getElementById("password")
             .value;
         try {
@@ -43,7 +43,7 @@ function submitPassword() {
             if (dropdown) {
                 dropdown.value = "name"; // Set dropdown value to "Name"
                 renderTable("name"); // Render the table sorted by "Name"
-                console.log("Default order set to 'Name'.");
+                //console.log("Default order set to 'Name'.");
             }
         }
         catch (error) {
@@ -59,7 +59,7 @@ function fetchAndDecryptData(password) {
         if (!response.ok)
             throw new Error("Failed to fetch encrypted data");
         const encryptedData = yield response.json();
-        console.log("Encrypted Data:", encryptedData);
+        //console.log("Encrypted Data:", encryptedData);
         const { salt, iv, ciphertext, tag } = encryptedData;
         // Decode Base64-encoded values
         const decodedSalt = Uint8Array.from(atob(salt), (c) => c.charCodeAt(0));
@@ -76,10 +76,10 @@ function fetchAndDecryptData(password) {
         // Decrypt the data
         const decryptedData = yield decryptData(key, decodedIV, combinedCiphertext);
         const data = JSON.parse(new TextDecoder().decode(decryptedData));
-        console.log("Decrypted Data:", data);
+        //console.log("Decrypted Data:", data);
         // Validate and sanitize fetched data
         people = data.map((person) => (Object.assign(Object.assign({}, person), { DOB: person.DOB || "1970-01-01", TOB: person.TOB || "00:00" })));
-        console.log("Sanitized Data:", people);
+        //console.log("Sanitized Data:", people);
     });
 }
 // Derive encryption key from password and salt
@@ -131,7 +131,7 @@ function renderTable(order) {
         }
         return 0;
     });
-    console.log("Sorted people array:", people); // Debugging
+    //console.log("Sorted people array:", people); // Debugging
     // Populate table
     people.forEach((person) => {
         const row = table.insertRow();
@@ -199,6 +199,6 @@ function updateCounters() {
 // Event listener for dropdown
 (_b = document.getElementById("sort-order")) === null || _b === void 0 ? void 0 : _b.addEventListener("change", (e) => {
     const order = e.target.value;
-    console.log("Sort order changed to:", order); // Debugging
+    //console.log("Sort order changed to:", order); // Debugging
     renderTable(order); // Render table with the selected order
 });
