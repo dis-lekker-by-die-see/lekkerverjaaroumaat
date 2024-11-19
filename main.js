@@ -1,10 +1,10 @@
 "use strict";
-// // // // type Person = {
-// // // //   name: string;
-// // // //   dob: string; // Date of Birth in "YYYY-MM-DD" format
-// // // //   TOB: string; // Time of Birth in "HH:mm" format
-// // // //   ageCounter?: HTMLElement;
-// // // // };
+// type Person = {
+//   name: string;
+//   DOB: string; // Date of Birth in "YYYY-MM-DD" format
+//   TOB?: string; // Time of Birth in "HH:mm" format (optional)
+//   ageCounter?: HTMLElement;
+// };
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -29,21 +29,15 @@ function submitPassword() {
         const password = document.getElementById("password")
             .value;
         try {
-            yield fetchData(password); // Fetch and decrypt the data
+            yield fetchAndDecryptData(password); // Fetch and decrypt the data
             // Hide the password input and submit button
             const loginSection = document.getElementById("login-section");
             if (loginSection)
                 loginSection.style.display = "none";
-            // const passwordInput = document.getElementById("password");
-            // const submitButton = document.getElementById("submit-button");
-            // if (passwordInput) passwordInput.style.display = "none";
-            // if (submitButton) submitButton.style.display = "none";
             // Show the dropdown menu
             const dropdownWrapper = document.getElementById("dropdown-wrapper");
             if (dropdownWrapper)
                 dropdownWrapper.style.display = "block";
-            // // Automatically select "Name" as the default order
-            // renderTable("name"); // Render the table sorted by "Name"
             // Automatically select "Name" as the default order
             const dropdown = document.getElementById("sort-order");
             if (dropdown) {
@@ -51,7 +45,6 @@ function submitPassword() {
                 renderTable("name"); // Render the table sorted by "Name"
                 console.log("Default order set to 'Name'.");
             }
-            // console.log("Default order set to 'Name'.");
         }
         catch (error) {
             console.error("Failed to fetch data:", error);
@@ -59,21 +52,56 @@ function submitPassword() {
         }
     });
 }
-// Fetch and decrypt the data
-function fetchData(password) {
+// Fetch and decrypt the data using Web Crypto API
+function fetchAndDecryptData(password) {
     return __awaiter(this, void 0, void 0, function* () {
-        const response = yield fetch("decrypt.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ password }),
-        });
+        const response = yield fetch("data/data.json.enc");
         if (!response.ok)
-            throw new Error("Failed to fetch data");
-        const data = yield response.json();
-        console.log("Raw Data from decrypt.php:", data);
+            throw new Error("Failed to fetch encrypted data");
+        const encryptedData = yield response.json();
+        console.log("Encrypted Data:", encryptedData);
+        const { salt, iv, ciphertext, tag } = encryptedData;
+        // Decode Base64-encoded values
+        const decodedSalt = Uint8Array.from(atob(salt), (c) => c.charCodeAt(0));
+        const decodedIV = Uint8Array.from(atob(iv), (c) => c.charCodeAt(0));
+        const decodedCiphertext = Uint8Array.from(atob(ciphertext), (c) => c.charCodeAt(0));
+        const decodedTag = Uint8Array.from(atob(tag), (c) => c.charCodeAt(0));
+        // Derive the encryption key
+        const key = yield deriveKey(password, decodedSalt);
+        // Combine ciphertext and tag (GCM expects them together)
+        const combinedCiphertext = new Uint8Array([
+            ...decodedCiphertext,
+            ...decodedTag,
+        ]);
+        // Decrypt the data
+        const decryptedData = yield decryptData(key, decodedIV, combinedCiphertext);
+        const data = JSON.parse(new TextDecoder().decode(decryptedData));
+        console.log("Decrypted Data:", data);
         // Validate and sanitize fetched data
         people = data.map((person) => (Object.assign(Object.assign({}, person), { DOB: person.DOB || "1970-01-01", TOB: person.TOB || "00:00" })));
-        console.log("Sanitized Data:", people); // Debug sanitized data
+        console.log("Sanitized Data:", people);
+    });
+}
+// Derive encryption key from password and salt
+function deriveKey(password, salt) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const encoder = new TextEncoder();
+        const keyMaterial = yield crypto.subtle.importKey("raw", encoder.encode(password), { name: "PBKDF2" }, false, ["deriveKey"]);
+        return crypto.subtle.deriveKey({
+            name: "PBKDF2",
+            salt,
+            iterations: 100000,
+            hash: "SHA-256",
+        }, keyMaterial, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+    });
+}
+// Decrypt the data
+function decryptData(key, iv, data) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return crypto.subtle.decrypt({
+            name: "AES-GCM",
+            iv,
+        }, key, data);
     });
 }
 // Render the table
@@ -119,6 +147,7 @@ function renderTable(order) {
     });
     updateCounters();
 }
+// Other functions (calculateAge, calculateAgeInSeconds, updateCounters) remain unchanged
 // Calculate age dynamically
 function calculateAge(DOB, TOB) {
     const now = new Date();
