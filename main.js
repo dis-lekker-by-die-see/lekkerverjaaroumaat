@@ -1,10 +1,4 @@
 "use strict";
-// type Person = {
-//   name: string;
-//   DOB: string; // Date of Birth in "YYYY-MM-DD" format
-//   TOB?: string; // Time of Birth in "HH:mm" format (optional)
-//   ageCounter?: HTMLElement;
-// };
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -138,7 +132,8 @@ function renderTable(order) {
         row.insertCell(0).textContent = person.name || "Unknown";
         const dobCell = row.insertCell(1);
         dobCell.innerHTML = person.DOB
-            ? `${person.DOB} <br>${person.TOB}`
+            ? `${person.DOB} <br>
+        ${person.TOB}`
             : "Missing Data";
         const counterCell = row.insertCell(2);
         const counter = document.createElement("span");
@@ -147,7 +142,6 @@ function renderTable(order) {
     });
     updateCounters();
 }
-// Other functions (calculateAge, calculateAgeInSeconds, updateCounters) remain unchanged
 // Calculate age dynamically
 function calculateAge(DOB, TOB) {
     const now = new Date();
@@ -189,9 +183,11 @@ function updateCounters() {
                 const minutes = Math.floor((seconds % (60 * 60)) / 60);
                 const secs = seconds % 60;
                 person.ageCounter.innerHTML = `
-            ${years} Jaar, ${months} maande, ${days} dae
-            <br>${hours} ure, ${minutes} minute, en ${secs} sekondes
-          `;
+            <span style="font-size: 1.2em; font-weight: bold;">
+            ${years}</span> <br>
+            ${months} maande, ${days} dae <br>
+            ${hours} ure, ${minutes} minute <br> 
+            ${secs} sekondes`;
             }
         });
     }, 1000);

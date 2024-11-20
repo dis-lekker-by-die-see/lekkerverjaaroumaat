@@ -1,132 +1,3 @@
-// type Person = {
-//   name: string;
-//   DOB: string; // Date of Birth in "YYYY-MM-DD" format
-//   TOB?: string; // Time of Birth in "HH:mm" format (optional)
-//   ageCounter?: HTMLElement;
-// };
-
-// // Active list of people
-// let people: Person[] = [];
-
-// // Attach event listener to the Submit button
-// document
-//   .getElementById("submit-button")
-//   ?.addEventListener("click", async () => {
-//     await submitPassword();
-//   });
-
-// // Submit button handler
-// async function submitPassword(): Promise<void> {
-//   //console.log("Submit button clicked!"); // Debugging
-//   const password = (document.getElementById("password") as HTMLInputElement)
-//     .value;
-
-//   try {
-//     await fetchData(password); // Fetch and decrypt the data
-
-//     // Hide the password input and submit button
-//     const loginSection = document.getElementById("login-section");
-//     if (loginSection) loginSection.style.display = "none";
-
-//     // const passwordInput = document.getElementById("password");
-//     // const submitButton = document.getElementById("submit-button");
-//     // if (passwordInput) passwordInput.style.display = "none";
-//     // if (submitButton) submitButton.style.display = "none";
-
-//     // Show the dropdown menu
-//     const dropdownWrapper = document.getElementById("dropdown-wrapper");
-//     if (dropdownWrapper) dropdownWrapper.style.display = "block";
-
-//     // // Automatically select "Name" as the default order
-//     // renderTable("name"); // Render the table sorted by "Name"
-
-//     // Automatically select "Name" as the default order
-//     const dropdown = document.getElementById("sort-order") as HTMLSelectElement;
-//     if (dropdown) {
-//       dropdown.value = "name"; // Set dropdown value to "Name"
-//       renderTable("name"); // Render the table sorted by "Name"
-//       //console.log("Default order set to 'Name'.");
-//     }
-//     // //console.log("Default order set to 'Name'.");
-//   } catch (error) {
-//     console.error("Failed to fetch data:", error);
-//     alert("Invalid password or unable to fetch data.");
-//   }
-// }
-
-// // Fetch and decrypt the data
-// async function fetchData(password: string): Promise<void> {
-//   const response = await fetch("decrypt.php", {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({ password }),
-//   });
-
-//   if (!response.ok) throw new Error("Failed to fetch data");
-
-//   const data: Person[] = await response.json();
-//   //console.log("Raw Data from decrypt.php:", data);
-
-//   // Validate and sanitize fetched data
-//   people = data.map((person) => ({
-//     ...person,
-//     DOB: person.DOB || "1970-01-01", // Ensure valid DOB
-//     TOB: person.TOB || "00:00", // Default TOB to "00:00"
-//   }));
-
-//   //console.log("Sanitized Data:", people); // Debug sanitized data
-// }
-
-// // Render the table
-// function renderTable(order: "name" | "calendar" | "age"): void {
-//   const table = document.getElementById("people-table") as HTMLTableElement;
-//   table.innerHTML = "";
-
-//   // Add table headers
-//   const headerRow = table.insertRow();
-//   const headers = ["Naam", "Geboorte Datum/Tyd", "Ouderdom"];
-//   headers.forEach((header) => {
-//     const th = document.createElement("th");
-//     th.textContent = header;
-//     headerRow.appendChild(th);
-//   });
-
-//   // Sort data based on the selected order
-//   people.sort((a, b) => {
-//     if (order === "name") return a.name.localeCompare(b.name);
-//     if (order === "calendar") {
-//       const [monthA, dayA] = a.DOB.split("-").slice(1).map(Number);
-//       const [monthB, dayB] = b.DOB.split("-").slice(1).map(Number);
-//       return monthA === monthB ? dayA - dayB : monthA - monthB;
-//     }
-//     if (order === "age") {
-//       return (
-//         calculateAgeInSeconds(b.DOB, b.TOB!) -
-//         calculateAgeInSeconds(a.DOB, a.TOB!)
-//       );
-//     }
-//     return 0;
-//   });
-
-//   //console.log("Sorted people array:", people); // Debugging
-
-//   // Populate table
-//   people.forEach((person) => {
-//     const row = table.insertRow();
-//     row.insertCell(0).textContent = person.name || "Unknown";
-//     const dobCell = row.insertCell(1);
-//     dobCell.innerHTML = person.DOB
-//       ? `${person.DOB} <br>${person.TOB}`
-//       : "Missing Data";
-//     const counterCell = row.insertCell(2);
-//     const counter = document.createElement("span");
-//     counterCell.appendChild(counter);
-//     person.ageCounter = counter;
-//   });
-
-//   updateCounters();
-// }
-
 type Person = {
   name: string;
   DOB: string; // Date of Birth in "YYYY-MM-DD" format
@@ -300,7 +171,8 @@ function renderTable(order: "name" | "calendar" | "age"): void {
     row.insertCell(0).textContent = person.name || "Unknown";
     const dobCell = row.insertCell(1);
     dobCell.innerHTML = person.DOB
-      ? `${person.DOB} <br>${person.TOB}`
+      ? `${person.DOB} <br>
+        ${person.TOB}`
       : "Missing Data";
     const counterCell = row.insertCell(2);
     const counter = document.createElement("span");
@@ -310,8 +182,6 @@ function renderTable(order: "name" | "calendar" | "age"): void {
 
   updateCounters();
 }
-
-// Other functions (calculateAge, calculateAgeInSeconds, updateCounters) remain unchanged
 
 // Calculate age dynamically
 function calculateAge(
@@ -361,11 +231,12 @@ function updateCounters(): void {
         const hours = Math.floor((seconds % (24 * 60 * 60)) / (60 * 60));
         const minutes = Math.floor((seconds % (60 * 60)) / 60);
         const secs = seconds % 60;
-
         person.ageCounter.innerHTML = `
-            ${years} Jaar, ${months} maande, ${days} dae
-            <br>${hours} ure, ${minutes} minute, en ${secs} sekondes
-          `;
+            <span style="font-size: 1.2em; font-weight: bold;">
+            ${years}</span> <br>
+            ${months} maande, ${days} dae <br>
+            ${hours} ure, ${minutes} minute <br> 
+            ${secs} sekondes`;
       }
     });
   }, 1000);
