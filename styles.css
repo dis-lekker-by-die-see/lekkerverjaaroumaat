@@ -114,7 +114,7 @@ button:hover {
 /* Select Dropdown */
 select {
   display: block;
-  margin: 0 auto 20px;
+  margin: 0 auto 0px;
   padding: 10px;
   font-size: 1em;
   border: 1px solid #ccc;
