@@ -78,6 +78,7 @@ label {
 audio {
   display: block;
   margin: 0px auto; /* Center horizontally and add spacing */
+  margin-bottom: 5px;
 }
 
 input[type="password"] {
@@ -138,10 +139,11 @@ table {
 /* Container for scrollable table */
 #table-container {
   /*max-height: 70vh; /* Limit height to 70% of the viewport */
-  height: calc(100vh - 300px);
+  /* height: calc(100vh - 300px); */
+  height: calc(100vh - 400px);
   overflow-y: auto; /* Enable vertical scrolling */
   margin: 10px auto;
-  border: 2px solid #ccc; /* Optional: Border for table container */
+  border: 1px solid #ccc; /* Optional: Border for table container */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Shadow for better visibility */
   background-color: white;
   width: calc(100% - 40px); /* Add space from the window edge */
