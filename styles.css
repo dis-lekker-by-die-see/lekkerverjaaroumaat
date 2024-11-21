@@ -233,7 +233,7 @@ tr:hover {
   }
 
   #subtitle {
-    color: hsla(0, 0%, 100%, 0.75); /* Bright text for subtitle */
+    color: hsla(0, 0%, 100%, 0.5); /* Bright text for subtitle */
   }
 
   /* Table Styles */
