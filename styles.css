@@ -206,7 +206,7 @@ tr:hover {
   #table-container {
     /*max-height: 70vh; /* Limit height to 70% of the viewport */
     /* height: calc(100vh - 300px); */
-    height: calc(100vh - 350px);
+    height: calc(100vh - 375px);
   }
   table {
     font-size: 0.9em;
@@ -225,24 +225,27 @@ tr:hover {
     color: #e0e0e0; /* Light text */
   }
 
+  .watermark {
+    opacity: 0.4;
+  }
   #top-logo img {
     filter: brightness(0.8); /* Adjust brightness for logos */
   }
 
   #subtitle {
-    color: #ffffff; /* Bright text for subtitle */
+    color: hsla(0, 0%, 100%, 0.75); /* Bright text for subtitle */
   }
 
   /* Table Styles */
   table {
     background: #1e1e1e; /* Dark background for table */
-    color: #ffffff; /* Light text for table */
+    color: hsla(0, 0%, 100%, 0.75); /* Light text for table */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Subtle shadow */
   }
 
   th {
     background: hsla(120, 100%, 31%, 0.5);
-    color: #ffffff; /* Light text */
+    color: hsla(0, 0%, 100%, 0.75); /* Light text */
   }
 
   td {
@@ -265,7 +268,7 @@ tr:hover {
   /* Form Styles */
   input[type="password"] {
     background-color: #1e1e1e; /* Dark input field */
-    color: #ffffff; /* Light text */
+    color: hsla(0, 0%, 100%, 0.75); /* Light text */
     border: 1px solid #333; /* Border for input field */
   }
 
@@ -275,7 +278,7 @@ tr:hover {
 
   button {
     background-color: #1e1e1e; /* Dark green button */
-    color: #ffffff; /* Light text */
+    color: hsla(0, 0%, 100%, 0.75); /* Light text */
   }
 
   button:hover {
@@ -284,7 +287,7 @@ tr:hover {
 
   select {
     background-color: #1e1e1e; /* Dark dropdown */
-    color: #ffffff; /* Light text */
+    color: hsla(0, 0%, 100%, 0.75); /* Light text */
     border: 1px solid #333; /* Border for dropdown */
   }
 
