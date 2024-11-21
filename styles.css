@@ -24,11 +24,22 @@
   font-display: swap;
 }
 
+#top-logo {
+  text-align: center; /* Center the logo */
+  margin: 20px 0; /* Add spacing above and below the logo */
+}
+
+#top-logo img {
+  max-width: 100px; /* Adjust the size of the SVG */
+  width: auto;
+  height: auto;
+}
+
 #subtitle {
   font-family: "UnifrakturMaguntia-Regular", cursive; /* Fallback to cursive */
   font-size: 1.75em;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 0px;
   color: #333;
   letter-spacing: 2px;
 }
