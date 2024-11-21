@@ -8,7 +8,9 @@
 
 #top-logo {
   text-align: center; /* Center the logo */
-  margin: 20px 0; /* Add spacing above and below the logo */
+  /* margin: 20px -5px;  */
+  margin-top: 15px;
+  margin-bottom: 0px;
 }
 
 #top-logo img {
@@ -35,7 +37,9 @@ body {
   background-color: #f4f4f9;
   color: #333;
 
-  min-height: 100vh;
+  overflow: hidden;
+  /* min-height: 100vh; */
+  height: 100vh;
 }
 
 .watermark {
@@ -52,13 +56,14 @@ body {
 .content {
   position: relative;
   z-index: 1;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
 }
 
 h1 {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 0px;
+  margin-bottom: -5px;
   color: #444;
 }
 
@@ -72,7 +77,7 @@ label {
 /* Centering the audio player */
 audio {
   display: block;
-  margin: 20px auto; /* Center horizontally and add spacing */
+  margin: 0px auto; /* Center horizontally and add spacing */
 }
 
 input[type="password"] {
@@ -83,18 +88,18 @@ input[type="password"] {
   width: 90%;
   max-width: 200px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 button {
   display: block;
-  margin: 10px auto 20px;
+  margin: 10px auto 10px;
   padding: 10px 20px;
   font-size: 1em;
   background-color: rgb(0, 128, 0);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   width: 90%;
   max-width: 200px;
@@ -132,13 +137,15 @@ table {
 }
 /* Container for scrollable table */
 #table-container {
-  max-height: 70vh; /* Limit height to 70% of the viewport */
+  /*max-height: 70vh; /* Limit height to 70% of the viewport */
+  height: calc(100vh - 300px);
   overflow-y: auto; /* Enable vertical scrolling */
-  margin: 20px auto;
-  border: 1px solid #ccc; /* Optional: Border for table container */
+  margin: 10px auto;
+  border: 2px solid #ccc; /* Optional: Border for table container */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Shadow for better visibility */
   background-color: white;
   width: calc(100% - 40px); /* Add space from the window edge */
+  box-sizing: border-box;
 }
 
 th,
@@ -155,6 +162,15 @@ th {
   z-index: 2; /* Ensure it stays above scrolling content */
   background-color: rgba(0, 128, 0, 0.8); /* Green background */
   color: white;
+}
+
+/* Ensure table rows are visible */
+td {
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.9em;
+  background-color: white;
 }
 
 tr:nth-child(even) {
