@@ -1,21 +1,3 @@
-/* @font-face {
-  font-family: 'BeautifulFont';
-  src: url('fonts/BeautifulFont.woff2') format('woff2'),
-       url('fonts/BeautifulFont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-} */
-
-/* Style the subtitle */
-/* #subtitle {
-  font-family: 'BeautifulFont', cursive; 
-  font-size: 1.5em;
-  text-align: center;
-  margin-top: 10px;
-  color: #333;
-  letter-spacing: 2px;
-} */
-
 @font-face {
   font-family: "UnifrakturMaguntia-Regular";
   src: url("data/fonts/UnifrakturMaguntia-Regular.ttf") format("truetype");
@@ -137,6 +119,7 @@ select {
 
 /* Table Styles */
 table {
+  position: sticky;
   margin: 20px auto;
   border-collapse: collapse;
   width: calc(100% - 40px); /* Add space from the window edge */
@@ -146,6 +129,16 @@ table {
   background: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;
+}
+/* Container for scrollable table */
+#table-container {
+  max-height: 70vh; /* Limit height to 70% of the viewport */
+  overflow-y: auto; /* Enable vertical scrolling */
+  margin: 20px auto;
+  border: 1px solid #ccc; /* Optional: Border for table container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Shadow for better visibility */
+  background-color: white;
+  width: calc(100% - 40px); /* Add space from the window edge */
 }
 
 th,
@@ -157,6 +150,9 @@ td {
 }
 
 th {
+  position: sticky; /* Sticky header */
+  top: 0; /* Stick to the top of the container */
+  z-index: 2; /* Ensure it stays above scrolling content */
   background-color: rgba(0, 128, 0, 0.8); /* Green background */
   color: white;
 }
