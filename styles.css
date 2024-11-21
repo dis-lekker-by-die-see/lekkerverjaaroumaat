@@ -49,7 +49,7 @@ body {
   width: 100%;
   height: calc(100% - 170px);
   background: url("data/images/Crest.svg") center/contain no-repeat;
-  opacity: 0.2; /* Adjust opacity for watermark visibility */
+  opacity: 0.3; /* Adjust opacity for watermark visibility */
   z-index: -1; /* Ensure it stays behind content */
 }
 
@@ -217,5 +217,86 @@ tr:hover {
   td {
     padding: 8px;
     /* word-break: break-word;  */
+  }
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text */
+  }
+
+  #top-logo img {
+    filter: brightness(0.8); /* Adjust brightness for logos */
+  }
+
+  #subtitle {
+    color: #ffffff; /* Bright text for subtitle */
+  }
+
+  /* Table Styles */
+  table {
+    background: #1e1e1e; /* Dark background for table */
+    color: #ffffff; /* Light text for table */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Subtle shadow */
+  }
+
+  th {
+    background: hsla(120, 100%, 31%, 0.5);
+    color: #ffffff; /* Light text */
+  }
+
+  td {
+    background-color: #1e1e1e; /* Dark background for table cells */
+    color: #e0e0e0; /* Light text */
+  }
+
+  tr:nth-child(odd) td {
+    background-color: #222; /* Slightly lighter row for contrast */
+  }
+
+  tr:nth-child(even) td {
+    background-color: #2a2a2a; /* Slightly lighter row for contrast */
+  }
+
+  tr:hover td {
+    background-color: #3a3a3a; /* Hover effect for rows */
+  }
+
+  /* Form Styles */
+  input[type="password"] {
+    background-color: #1e1e1e; /* Dark input field */
+    color: #ffffff; /* Light text */
+    border: 1px solid #333; /* Border for input field */
+  }
+
+  input[type="password"]::placeholder {
+    color: #888; /* Placeholder text color */
+  }
+
+  button {
+    background-color: #1e1e1e; /* Dark green button */
+    color: #ffffff; /* Light text */
+  }
+
+  button:hover {
+    background-color: #388e3c; /* Slightly lighter green on hover */
+  }
+
+  select {
+    background-color: #1e1e1e; /* Dark dropdown */
+    color: #ffffff; /* Light text */
+    border: 1px solid #333; /* Border for dropdown */
+  }
+
+  /* Audio Player */
+  audio {
+    filter: brightness(0.7); /* Dim audio player for dark mode */
+  }
+
+  /* Scrollable Table Container */
+  #table-container {
+    background-color: #1e1e1e; /* Dark background for container */
+    border: 1px solid #333; /* Border for table container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Subtle shadow */
   }
 }
