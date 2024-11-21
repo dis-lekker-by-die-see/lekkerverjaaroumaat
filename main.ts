@@ -9,11 +9,43 @@ type Person = {
 let people: Person[] = [];
 
 // Attach event listener to the Submit button
-document
-  .getElementById("submit-button")
-  ?.addEventListener("click", async () => {
+// document
+//   .getElementById("submit-button")
+//   ?.addEventListener("click", async () => {
+//     await submitPassword();
+//   });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const submitButton = document.getElementById("submit-button");
+  const passwordInput = document.getElementById("password");
+  const audioPlayer = document.querySelector("audio");
+
+  // Play audio and call submitPassword when the button is clicked
+  submitButton?.addEventListener("click", async () => {
+    if (audioPlayer instanceof HTMLAudioElement) {
+      try {
+        await audioPlayer.play(); // Start playing audio
+      } catch (error) {
+        console.error("Audio play error:", error);
+      }
+    }
     await submitPassword();
   });
+
+  // Trigger button click when "Enter" is pressed in the password field
+  passwordInput?.addEventListener("keydown", async (event) => {
+    if (event.key === "Enter") {
+      if (audioPlayer instanceof HTMLAudioElement) {
+        try {
+          await audioPlayer.play(); // Start playing audio
+        } catch (error) {
+          console.error("Audio play error:", error);
+        }
+      }
+      await submitPassword();
+    }
+  });
+});
 
 // Submit button handler
 async function submitPassword(): Promise<void> {
@@ -234,8 +266,10 @@ function updateCounters(): void {
         person.ageCounter.innerHTML = `
             <span style="font-size: 1.2em; font-weight: bold;">
             ${years}</span> <br>
-            ${months} maande, ${days} dae <br>
-            ${hours} ure, ${minutes} minute <br> 
+            ${months} maande <br>
+            ${days} dae <br>
+            ${hours} ure <br>
+            ${minutes} minute <br> 
             ${secs} sekondes`;
       }
     });

@@ -1,3 +1,38 @@
+/* @font-face {
+  font-family: 'BeautifulFont';
+  src: url('fonts/BeautifulFont.woff2') format('woff2'),
+       url('fonts/BeautifulFont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+} */
+
+/* Style the subtitle */
+/* #subtitle {
+  font-family: 'BeautifulFont', cursive; 
+  font-size: 1.5em;
+  text-align: center;
+  margin-top: 10px;
+  color: #333;
+  letter-spacing: 2px;
+} */
+
+@font-face {
+  font-family: "UnifrakturMaguntia-Regular";
+  src: url("data/fonts/UnifrakturMaguntia-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+#subtitle {
+  font-family: "UnifrakturMaguntia-Regular", cursive; /* Fallback to cursive */
+  font-size: 1.75em;
+  text-align: center;
+  margin-top: 10px;
+  color: #333;
+  letter-spacing: 2px;
+}
+
 /* General Styles */
 body {
   font-family: "Comic Sans MS", sans-serif;
@@ -6,6 +41,26 @@ body {
   padding: 0;
   background-color: #f4f4f9;
   color: #333;
+
+  min-height: 100vh;
+}
+
+.watermark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("data/images/Crest.svg") center/contain no-repeat;
+  opacity: 0.1; /* Adjust opacity for watermark visibility */
+  z-index: -1; /* Ensure it stays behind content */
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  text-align: center;
 }
 
 h1 {
@@ -21,13 +76,19 @@ label {
   text-align: center;
 }
 
+/* Centering the audio player */
+audio {
+  display: block;
+  margin: 20px auto; /* Center horizontally and add spacing */
+}
+
 input[type="password"] {
   display: block;
   margin: 0 auto;
   padding: 8px;
   font-size: 1em;
   width: 90%;
-  max-width: 300px;
+  max-width: 200px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
@@ -43,7 +104,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   width: 90%;
-  max-width: 300px;
+  max-width: 200px;
 }
 
 button:hover {
@@ -112,13 +173,13 @@ tr:hover {
   }
 
   table {
-    font-size: 0.8em;
+    font-size: 0.9em;
     width: 95%; /* Reduce width slightly on narrow screens */
   }
 
   th,
   td {
     padding: 8px;
-    word-break: break-word; /* Break long text for narrow screens */
+    /* word-break: break-word;  */
   }
 }

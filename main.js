@@ -8,14 +8,46 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var _a, _b;
+var _a;
 // Active list of people
 let people = [];
 // Attach event listener to the Submit button
-(_a = document
-    .getElementById("submit-button")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
-    yield submitPassword();
-}));
+// document
+//   .getElementById("submit-button")
+//   ?.addEventListener("click", async () => {
+//     await submitPassword();
+//   });
+document.addEventListener("DOMContentLoaded", () => {
+    const submitButton = document.getElementById("submit-button");
+    const passwordInput = document.getElementById("password");
+    const audioPlayer = document.querySelector("audio");
+    // Play audio and call submitPassword when the button is clicked
+    submitButton === null || submitButton === void 0 ? void 0 : submitButton.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
+        if (audioPlayer instanceof HTMLAudioElement) {
+            try {
+                yield audioPlayer.play(); // Start playing audio
+            }
+            catch (error) {
+                console.error("Audio play error:", error);
+            }
+        }
+        yield submitPassword();
+    }));
+    // Trigger button click when "Enter" is pressed in the password field
+    passwordInput === null || passwordInput === void 0 ? void 0 : passwordInput.addEventListener("keydown", (event) => __awaiter(void 0, void 0, void 0, function* () {
+        if (event.key === "Enter") {
+            if (audioPlayer instanceof HTMLAudioElement) {
+                try {
+                    yield audioPlayer.play(); // Start playing audio
+                }
+                catch (error) {
+                    console.error("Audio play error:", error);
+                }
+            }
+            yield submitPassword();
+        }
+    }));
+});
 // Submit button handler
 function submitPassword() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -185,15 +217,17 @@ function updateCounters() {
                 person.ageCounter.innerHTML = `
             <span style="font-size: 1.2em; font-weight: bold;">
             ${years}</span> <br>
-            ${months} maande, ${days} dae <br>
-            ${hours} ure, ${minutes} minute <br> 
+            ${months} maande <br>
+            ${days} dae <br>
+            ${hours} ure <br>
+            ${minutes} minute <br> 
             ${secs} sekondes`;
             }
         });
     }, 1000);
 }
 // Event listener for dropdown
-(_b = document.getElementById("sort-order")) === null || _b === void 0 ? void 0 : _b.addEventListener("change", (e) => {
+(_a = document.getElementById("sort-order")) === null || _a === void 0 ? void 0 : _a.addEventListener("change", (e) => {
     const order = e.target.value;
     //console.log("Sort order changed to:", order); // Debugging
     renderTable(order); // Render table with the selected order

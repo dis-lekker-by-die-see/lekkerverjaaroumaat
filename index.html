@@ -1,30 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/svg+xml" href="data/images/lion.svg" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Verjaarsdae</title>
     <script src="main.js" defer></script>
+
+    <link
+      rel="preload"
+      href="data/fonts/UnifrakturMaguntia-Regular.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin="anonymous"
+    />
+
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="login-section">
-      <!-- <label for="password">Wagwoord:</label> -->
-      <br />
-      <br />
-      <input type="password" id="password" />
-      <button id="submit-button">Druk Die Groen Knoppie!</button>
-    </div>
+    <div class="watermark"></div>
+    <div class="content">
+      <div id="login-section">
+        <!-- <label for="password">Wagwoord:</label> -->
+        <br />
+        <br />
+        <input type="password" id="password" />
+        <button id="submit-button">Groen Knoppie</button>
+      </div>
 
-    <div id="dropdown-wrapper" style="display: none">
-      <h1>Verjaarsdag Lysie</h1>
-      <select id="sort-order">
-        <option value="name" selected>Naam</option>
-        <option value="calendar">Kalender</option>
-        <option value="age">Ouderdom</option>
-      </select>
+      <div id="dropdown-wrapper" style="display: none">
+        <!-- <h1>Verjaarsdag Lysie</h1> -->
+        <h1 id="subtitle">Barnardinus Viridium Fruticum</h1>
+        <audio controls autoplay loop>
+          <source
+            src="data/musica/Lekker Verjaar - 320.mp3"
+            type="audio/mpeg"
+          />
+          . . .
+        </audio>
+        <select id="sort-order">
+          <option value="name" selected>Naam</option>
+          <option value="calendar">Kalender</option>
+          <option value="age">Ouderdom</option>
+        </select>
+      </div>
     </div>
-
+    <!-- <h2 id="subtitle">Barnardinus Viridium Fruticum</h2> -->
     <table id="people-table"></table>
   </body>
 </html>
