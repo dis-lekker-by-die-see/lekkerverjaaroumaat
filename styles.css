@@ -293,7 +293,7 @@ tr:hover {
 
   /* Audio Player */
   audio {
-    filter: brightness(0.7); /* Dim audio player for dark mode */
+    filter: brightness(0.3); /* Dim audio player for dark mode */
   }
 
   /* Scrollable Table Container */
