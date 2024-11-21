@@ -206,7 +206,7 @@ tr:hover {
   #table-container {
     /*max-height: 70vh; /* Limit height to 70% of the viewport */
     /* height: calc(100vh - 300px); */
-    height: calc(100vh - 400px);
+    height: calc(100vh - 350px);
   }
   table {
     font-size: 0.9em;
