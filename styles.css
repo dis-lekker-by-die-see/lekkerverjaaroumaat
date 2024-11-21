@@ -140,7 +140,7 @@ table {
 #table-container {
   /*max-height: 70vh; /* Limit height to 70% of the viewport */
   /* height: calc(100vh - 300px); */
-  height: calc(100vh - 400px);
+  height: calc(100vh - 310px);
   overflow-y: auto; /* Enable vertical scrolling */
   margin: 10px auto;
   border: 1px solid #ccc; /* Optional: Border for table container */
@@ -184,9 +184,15 @@ tr:hover {
 }
 
 /* Responsive Design for Narrow Screens */
-@media (max-width: 600px) {
+@media (max-width: 500px) {
   h1 {
-    font-size: 1.5em;
+    font-size: 1.3em;
+  }
+  #subtitle {
+    font-size: 1.3em;
+  }
+  audio {
+    margin: 10px auto; /* Center horizontally and add spacing */
   }
 
   input[type="password"],
@@ -197,6 +203,11 @@ tr:hover {
     padding: 10px;
   }
 
+  #table-container {
+    /*max-height: 70vh; /* Limit height to 70% of the viewport */
+    /* height: calc(100vh - 300px); */
+    height: calc(100vh - 400px);
+  }
   table {
     font-size: 0.9em;
     width: 95%; /* Reduce width slightly on narrow screens */
