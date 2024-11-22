@@ -227,8 +227,11 @@ tr:hover {
 
   th,
   td {
-    padding: 8px;
+    padding: 5px;
     /* word-break: break-word;  */
+  }
+  th {
+    font-size: 1em;
   }
 }
 @media (prefers-color-scheme: dark) {
