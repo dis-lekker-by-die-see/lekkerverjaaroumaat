@@ -36,11 +36,15 @@ function submitPassword() {
                 // Play the music
                 const audioPlayer = document.querySelector("audio");
                 if (audioPlayer instanceof HTMLAudioElement) {
-                    try {
-                        yield audioPlayer.play();
-                    }
-                    catch (error) {
-                        console.error("Audio play error:", error);
+                    // Check if the audio is already playing or paused
+                    if (audioPlayer.paused) {
+                        try {
+                            yield audioPlayer.play();
+                            console.log("Audio playback started.");
+                        }
+                        catch (error) {
+                            console.error("Audio play error:", error);
+                        }
                     }
                 }
                 // Hide the password input and submit button
