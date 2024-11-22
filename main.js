@@ -11,101 +11,208 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var _a;
 // Active list of people
 let people = [];
-// Attach event listener to the Submit button
-// document
-//   .getElementById("submit-button")
-//   ?.addEventListener("click", async () => {
+// document.addEventListener("DOMContentLoaded", () => {
+//   const submitButton = document.getElementById("submit-button");
+//   const passwordInput = document.getElementById("password");
+//   const audioPlayer = document.querySelector("audio");
+//   // Play audio and call submitPassword when the button is clicked
+//   submitButton?.addEventListener("click", async () => {
+//     if (audioPlayer instanceof HTMLAudioElement) {
+//       try {
+//         await audioPlayer.play(); // Start playing audio
+//       } catch (error) {
+//         console.error("Audio play error:", error);
+//       }
+//     }
 //     await submitPassword();
 //   });
+//   // Trigger button click when "Enter" is pressed in the password field
+//   passwordInput?.addEventListener("keydown", async (event) => {
+//     if (event.key === "Enter") {
+//       if (audioPlayer instanceof HTMLAudioElement) {
+//         try {
+//           await audioPlayer.play(); // Start playing audio
+//         } catch (error) {
+//           console.error("Audio play error:", error);
+//         }
+//       }
+//       await submitPassword();
+//     }
+//   });
+// });
 document.addEventListener("DOMContentLoaded", () => {
     const submitButton = document.getElementById("submit-button");
     const passwordInput = document.getElementById("password");
-    const audioPlayer = document.querySelector("audio");
-    // Play audio and call submitPassword when the button is clicked
+    // Call submitPassword when the button is clicked
     submitButton === null || submitButton === void 0 ? void 0 : submitButton.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
-        if (audioPlayer instanceof HTMLAudioElement) {
-            try {
-                yield audioPlayer.play(); // Start playing audio
-            }
-            catch (error) {
-                console.error("Audio play error:", error);
-            }
-        }
         yield submitPassword();
     }));
     // Trigger button click when "Enter" is pressed in the password field
     passwordInput === null || passwordInput === void 0 ? void 0 : passwordInput.addEventListener("keydown", (event) => __awaiter(void 0, void 0, void 0, function* () {
         if (event.key === "Enter") {
-            if (audioPlayer instanceof HTMLAudioElement) {
-                try {
-                    yield audioPlayer.play(); // Start playing audio
-                }
-                catch (error) {
-                    console.error("Audio play error:", error);
-                }
-            }
             yield submitPassword();
         }
     }));
 });
 // Submit button handler
+// async function submitPassword(): Promise<void> {
+//   //console.log("Submit button clicked!"); // Debugging
+//   const password = (document.getElementById("password") as HTMLInputElement)
+//     .value;
+//   try {
+//     await fetchAndDecryptData(password); // Fetch and decrypt the data
+//     // Hide the password input and submit button
+//     const loginSection = document.getElementById("login-section");
+//     if (loginSection) loginSection.style.display = "none";
+//     // Show the dropdown menu
+//     const dropdownWrapper = document.getElementById("dropdown-wrapper");
+//     if (dropdownWrapper) dropdownWrapper.style.display = "block";
+//     // Automatically select "Name" as the default order
+//     const dropdown = document.getElementById("sort-order") as HTMLSelectElement;
+//     if (dropdown) {
+//       dropdown.value = "name"; // Set dropdown value to "Name"
+//       renderTable("name"); // Render the table sorted by "Name"
+//       //console.log("Default order set to 'Name'.");
+//     }
+//   } catch (error) {
+//     console.error("Failed to fetch data:", error);
+//     alert("Invalid password or unable to fetch data.");
+//   }
+// }
+// // Fetch and decrypt the data using Web Crypto API
+// async function fetchAndDecryptData(password: string): Promise<void> {
+//   const response = await fetch("data/data.json.enc");
+//   if (!response.ok) throw new Error("Failed to fetch encrypted data");
+//   const encryptedData = await response.json();
+//   //console.log("Encrypted Data:", encryptedData);
+//   const { salt, iv, ciphertext, tag } = encryptedData;
+//   // Decode Base64-encoded values
+//   const decodedSalt = Uint8Array.from(atob(salt), (c) => c.charCodeAt(0));
+//   const decodedIV = Uint8Array.from(atob(iv), (c) => c.charCodeAt(0));
+//   const decodedCiphertext = Uint8Array.from(atob(ciphertext), (c) =>
+//     c.charCodeAt(0)
+//   );
+//   const decodedTag = Uint8Array.from(atob(tag), (c) => c.charCodeAt(0));
+//   // Derive the encryption key
+//   const key = await deriveKey(password, decodedSalt);
+//   // Combine ciphertext and tag (GCM expects them together)
+//   const combinedCiphertext = new Uint8Array([
+//     ...decodedCiphertext,
+//     ...decodedTag,
+//   ]);
+//   // Decrypt the data
+//   const decryptedData = await decryptData(key, decodedIV, combinedCiphertext);
+//   const data: Person[] = JSON.parse(new TextDecoder().decode(decryptedData));
+//   //console.log("Decrypted Data:", data);
+//   // Validate and sanitize fetched data
+//   people = data.map((person) => ({
+//     ...person,
+//     DOB: person.DOB || "1970-01-01", // Ensure valid DOB
+//     TOB: person.TOB || "00:00", // Default TOB to "00:00"
+//   }));
+//   //console.log("Sanitized Data:", people);
+// }
+///////////////////////////////////////////////////////////////////////
 function submitPassword() {
     return __awaiter(this, void 0, void 0, function* () {
-        //console.log("Submit button clicked!"); // Debugging
-        const password = document.getElementById("password")
-            .value;
+        const passwordInput = document.getElementById("password");
+        const password = passwordInput.value;
         try {
-            yield fetchAndDecryptData(password); // Fetch and decrypt the data
-            // Hide the password input and submit button
-            const loginSection = document.getElementById("login-section");
-            if (loginSection)
-                loginSection.style.display = "none";
-            // Show the dropdown menu
-            const dropdownWrapper = document.getElementById("dropdown-wrapper");
-            if (dropdownWrapper)
-                dropdownWrapper.style.display = "block";
-            // Automatically select "Name" as the default order
-            const dropdown = document.getElementById("sort-order");
-            if (dropdown) {
-                dropdown.value = "name"; // Set dropdown value to "Name"
-                renderTable("name"); // Render the table sorted by "Name"
-                //console.log("Default order set to 'Name'.");
+            const dataFound = yield fetchAndDecryptData(password); // Fetch and decrypt the data
+            // if (dataFound) {
+            //   // Hide the password input and submit button
+            //   const loginSection = document.getElementById("login-section");
+            //   if (loginSection) loginSection.style.display = "none";
+            //   // Show the dropdown menu
+            //   const dropdownWrapper = document.getElementById("dropdown-wrapper");
+            //   if (dropdownWrapper) dropdownWrapper.style.display = "block";
+            //   // Automatically select "Name" as the default order
+            //   const dropdown = document.getElementById(
+            //     "sort-order"
+            //   ) as HTMLSelectElement;
+            //   if (dropdown) {
+            //     dropdown.value = "name"; // Set dropdown value to "Name"
+            //     renderTable("name"); // Render the table sorted by "Name"
+            //   }
+            // } else {
+            //   // Clear password input field if no match was found
+            //   passwordInput.value = "";
+            // }
+            if (dataFound) {
+                // Play the music
+                const audioPlayer = document.querySelector("audio");
+                if (audioPlayer instanceof HTMLAudioElement) {
+                    try {
+                        yield audioPlayer.play();
+                    }
+                    catch (error) {
+                        console.error("Audio play error:", error);
+                    }
+                }
+                // Hide the password input and submit button
+                const loginSection = document.getElementById("login-section");
+                if (loginSection)
+                    loginSection.style.display = "none";
+                // Show the dropdown menu
+                const dropdownWrapper = document.getElementById("dropdown-wrapper");
+                if (dropdownWrapper)
+                    dropdownWrapper.style.display = "block";
+                // Automatically select "Name" as the default order
+                const dropdown = document.getElementById("sort-order");
+                if (dropdown) {
+                    dropdown.value = "name"; // Set dropdown value to "Name"
+                    renderTable("name"); // Render the table sorted by "Name"
+                }
+            }
+            else {
+                // Clear password input field if no match was found
+                passwordInput.value = "";
             }
         }
         catch (error) {
-            console.error("Failed to fetch data:", error);
-            alert("Invalid password or unable to fetch data.");
+            console.error("Unexpected error during password submission:", error);
         }
     });
 }
-// Fetch and decrypt the data using Web Crypto API
 function fetchAndDecryptData(password) {
     return __awaiter(this, void 0, void 0, function* () {
-        const response = yield fetch("data/data.json.enc");
-        if (!response.ok)
-            throw new Error("Failed to fetch encrypted data");
-        const encryptedData = yield response.json();
-        //console.log("Encrypted Data:", encryptedData);
-        const { salt, iv, ciphertext, tag } = encryptedData;
-        // Decode Base64-encoded values
-        const decodedSalt = Uint8Array.from(atob(salt), (c) => c.charCodeAt(0));
-        const decodedIV = Uint8Array.from(atob(iv), (c) => c.charCodeAt(0));
-        const decodedCiphertext = Uint8Array.from(atob(ciphertext), (c) => c.charCodeAt(0));
-        const decodedTag = Uint8Array.from(atob(tag), (c) => c.charCodeAt(0));
-        // Derive the encryption key
-        const key = yield deriveKey(password, decodedSalt);
-        // Combine ciphertext and tag (GCM expects them together)
-        const combinedCiphertext = new Uint8Array([
-            ...decodedCiphertext,
-            ...decodedTag,
-        ]);
-        // Decrypt the data
-        const decryptedData = yield decryptData(key, decodedIV, combinedCiphertext);
-        const data = JSON.parse(new TextDecoder().decode(decryptedData));
-        //console.log("Decrypted Data:", data);
-        // Validate and sanitize fetched data
-        people = data.map((person) => (Object.assign(Object.assign({}, person), { DOB: person.DOB || "1970-01-01", TOB: person.TOB || "00:00" })));
-        //console.log("Sanitized Data:", people);
+        const datasetFiles = ["data/data1.json.enc", "data/data2.json.enc"]; // List of datasets
+        const passwordInput = document.getElementById("password");
+        for (const file of datasetFiles) {
+            try {
+                // Fetch the encrypted file
+                const response = yield fetch(file);
+                if (!response.ok)
+                    continue; // Skip if the file cannot be fetched
+                const encryptedData = yield response.json();
+                const { salt, iv, ciphertext, tag } = encryptedData;
+                // Decode Base64-encoded values
+                const decodedSalt = Uint8Array.from(atob(salt), (c) => c.charCodeAt(0));
+                const decodedIV = Uint8Array.from(atob(iv), (c) => c.charCodeAt(0));
+                const decodedCiphertext = Uint8Array.from(atob(ciphertext), (c) => c.charCodeAt(0));
+                const decodedTag = Uint8Array.from(atob(tag), (c) => c.charCodeAt(0));
+                // Derive the encryption key
+                const key = yield deriveKey(password, decodedSalt);
+                // Combine ciphertext and tag (GCM expects them together)
+                const combinedCiphertext = new Uint8Array([
+                    ...decodedCiphertext,
+                    ...decodedTag,
+                ]);
+                // Decrypt the data
+                const decryptedData = yield decryptData(key, decodedIV, combinedCiphertext);
+                const data = JSON.parse(new TextDecoder().decode(decryptedData));
+                // Validate and sanitize fetched data
+                people = data.map((person) => (Object.assign(Object.assign({}, person), { DOB: person.DOB || "1970-01-01", TOB: person.TOB || "00:00" })));
+                // Return true when decryption is successful
+                return true;
+            }
+            catch (error) {
+                // If decryption fails for this file, try the next one
+                continue;
+            }
+        }
+        // Return false if no dataset matched
+        return false;
     });
 }
 // Derive encryption key from password and salt
