@@ -8,38 +8,6 @@ type Person = {
 // Active list of people
 let people: Person[] = [];
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   const submitButton = document.getElementById("submit-button");
-//   const passwordInput = document.getElementById("password");
-//   const audioPlayer = document.querySelector("audio");
-
-//   // Play audio and call submitPassword when the button is clicked
-//   submitButton?.addEventListener("click", async () => {
-//     if (audioPlayer instanceof HTMLAudioElement) {
-//       try {
-//         await audioPlayer.play(); // Start playing audio
-//       } catch (error) {
-//         console.error("Audio play error:", error);
-//       }
-//     }
-//     await submitPassword();
-//   });
-
-//   // Trigger button click when "Enter" is pressed in the password field
-//   passwordInput?.addEventListener("keydown", async (event) => {
-//     if (event.key === "Enter") {
-//       if (audioPlayer instanceof HTMLAudioElement) {
-//         try {
-//           await audioPlayer.play(); // Start playing audio
-//         } catch (error) {
-//           console.error("Audio play error:", error);
-//         }
-//       }
-//       await submitPassword();
-//     }
-//   });
-// });
-
 document.addEventListener("DOMContentLoaded", () => {
   const submitButton = document.getElementById("submit-button");
   const passwordInput = document.getElementById("password");
@@ -57,109 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Submit button handler
-// async function submitPassword(): Promise<void> {
-//   //console.log("Submit button clicked!"); // Debugging
-//   const password = (document.getElementById("password") as HTMLInputElement)
-//     .value;
-
-//   try {
-//     await fetchAndDecryptData(password); // Fetch and decrypt the data
-
-//     // Hide the password input and submit button
-//     const loginSection = document.getElementById("login-section");
-//     if (loginSection) loginSection.style.display = "none";
-
-//     // Show the dropdown menu
-//     const dropdownWrapper = document.getElementById("dropdown-wrapper");
-//     if (dropdownWrapper) dropdownWrapper.style.display = "block";
-
-//     // Automatically select "Name" as the default order
-//     const dropdown = document.getElementById("sort-order") as HTMLSelectElement;
-//     if (dropdown) {
-//       dropdown.value = "name"; // Set dropdown value to "Name"
-//       renderTable("name"); // Render the table sorted by "Name"
-//       //console.log("Default order set to 'Name'.");
-//     }
-//   } catch (error) {
-//     console.error("Failed to fetch data:", error);
-//     alert("Invalid password or unable to fetch data.");
-//   }
-// }
-
-// // Fetch and decrypt the data using Web Crypto API
-// async function fetchAndDecryptData(password: string): Promise<void> {
-//   const response = await fetch("data/data.json.enc");
-//   if (!response.ok) throw new Error("Failed to fetch encrypted data");
-
-//   const encryptedData = await response.json();
-//   //console.log("Encrypted Data:", encryptedData);
-
-//   const { salt, iv, ciphertext, tag } = encryptedData;
-
-//   // Decode Base64-encoded values
-//   const decodedSalt = Uint8Array.from(atob(salt), (c) => c.charCodeAt(0));
-//   const decodedIV = Uint8Array.from(atob(iv), (c) => c.charCodeAt(0));
-//   const decodedCiphertext = Uint8Array.from(atob(ciphertext), (c) =>
-//     c.charCodeAt(0)
-//   );
-//   const decodedTag = Uint8Array.from(atob(tag), (c) => c.charCodeAt(0));
-
-//   // Derive the encryption key
-//   const key = await deriveKey(password, decodedSalt);
-
-//   // Combine ciphertext and tag (GCM expects them together)
-//   const combinedCiphertext = new Uint8Array([
-//     ...decodedCiphertext,
-//     ...decodedTag,
-//   ]);
-
-//   // Decrypt the data
-//   const decryptedData = await decryptData(key, decodedIV, combinedCiphertext);
-//   const data: Person[] = JSON.parse(new TextDecoder().decode(decryptedData));
-
-//   //console.log("Decrypted Data:", data);
-
-//   // Validate and sanitize fetched data
-//   people = data.map((person) => ({
-//     ...person,
-//     DOB: person.DOB || "1970-01-01", // Ensure valid DOB
-//     TOB: person.TOB || "00:00", // Default TOB to "00:00"
-//   }));
-
-//   //console.log("Sanitized Data:", people);
-// }
-
-///////////////////////////////////////////////////////////////////////
-
+//------------------------------------------------------------------------------------------------------------------------------------------
 async function submitPassword(): Promise<void> {
   const passwordInput = document.getElementById("password") as HTMLInputElement;
   const password = passwordInput.value;
 
   try {
     const dataFound = await fetchAndDecryptData(password); // Fetch and decrypt the data
-
-    // if (dataFound) {
-    //   // Hide the password input and submit button
-    //   const loginSection = document.getElementById("login-section");
-    //   if (loginSection) loginSection.style.display = "none";
-
-    //   // Show the dropdown menu
-    //   const dropdownWrapper = document.getElementById("dropdown-wrapper");
-    //   if (dropdownWrapper) dropdownWrapper.style.display = "block";
-
-    //   // Automatically select "Name" as the default order
-    //   const dropdown = document.getElementById(
-    //     "sort-order"
-    //   ) as HTMLSelectElement;
-    //   if (dropdown) {
-    //     dropdown.value = "name"; // Set dropdown value to "Name"
-    //     renderTable("name"); // Render the table sorted by "Name"
-    //   }
-    // } else {
-    //   // Clear password input field if no match was found
-    //   passwordInput.value = "";
-    // }
     if (dataFound) {
       // Play the music
       const audioPlayer = document.querySelector("audio");
@@ -170,7 +42,6 @@ async function submitPassword(): Promise<void> {
           console.error("Audio play error:", error);
         }
       }
-
       // Hide the password input and submit button
       const loginSection = document.getElementById("login-section");
       if (loginSection) loginSection.style.display = "none";
@@ -195,7 +66,7 @@ async function submitPassword(): Promise<void> {
     console.error("Unexpected error during password submission:", error);
   }
 }
-
+//------------------------------------------------------------------------------------------------------------------------------------------
 async function fetchAndDecryptData(password: string): Promise<boolean> {
   const datasetFiles = ["data/data1.json.enc", "data/data2.json.enc"]; // List of datasets
   const passwordInput = document.getElementById("password") as HTMLInputElement;
@@ -242,7 +113,6 @@ async function fetchAndDecryptData(password: string): Promise<boolean> {
         DOB: person.DOB || "1970-01-01", // Ensure valid DOB
         TOB: person.TOB || "00:00", // Default TOB to "00:00"
       }));
-
       // Return true when decryption is successful
       return true;
     } catch (error) {
@@ -250,11 +120,10 @@ async function fetchAndDecryptData(password: string): Promise<boolean> {
       continue;
     }
   }
-
   // Return false if no dataset matched
   return false;
 }
-
+//------------------------------------------------------------------------------------------------------------------------------------------
 // Derive encryption key from password and salt
 async function deriveKey(
   password: string,
@@ -282,7 +151,7 @@ async function deriveKey(
     ["decrypt"]
   );
 }
-
+//------------------------------------------------------------------------------------------------------------------------------------------
 // Decrypt the data
 async function decryptData(
   key: CryptoKey,
@@ -298,7 +167,7 @@ async function decryptData(
     data
   );
 }
-
+//------------------------------------------------------------------------------------------------------------------------------------------
 // Render the table
 function renderTable(order: "name" | "calendar" | "age"): void {
   const table = document.getElementById("people-table") as HTMLTableElement;
@@ -329,13 +198,15 @@ function renderTable(order: "name" | "calendar" | "age"): void {
     }
     return 0;
   });
-
   //console.log("Sorted people array:", people); // Debugging
 
   // Populate table
   people.forEach((person) => {
     const row = table.insertRow();
-    row.insertCell(0).textContent = person.name || "Unknown";
+    // row.insertCell(0).textContent = person.name || "Unknown";
+    row.insertCell(0).innerHTML =
+      `<span style="font-size: 1em;">
+        ${person.name}` || "Unknown";
     const dobCell = row.insertCell(1);
     dobCell.innerHTML = person.DOB
       ? `${person.DOB} <br>
@@ -349,7 +220,7 @@ function renderTable(order: "name" | "calendar" | "age"): void {
 
   updateCounters();
 }
-
+//------------------------------------------------------------------------------------------------------------------------------------------
 // Calculate age dynamically
 function calculateAge(
   DOB: string,
@@ -377,7 +248,7 @@ function calculateAge(
 
   return { years, months, days };
 }
-
+//------------------------------------------------------------------------------------------------------------------------------------------
 // Calculate age in seconds
 function calculateAgeInSeconds(DOB: string, TOB: string): number {
   if (!DOB) return 0; // Default to 0 seconds if `DOB` is missing
@@ -387,7 +258,7 @@ function calculateAgeInSeconds(DOB: string, TOB: string): number {
   birthDate.setHours(hours, minutes, 0, 0); // Set Time of Birth
   return Math.floor((now.getTime() - birthDate.getTime()) / 1000);
 }
-
+//------------------------------------------------------------------------------------------------------------------------------------------
 // Update counters dynamically
 function updateCounters(): void {
   setInterval(() => {
@@ -401,16 +272,17 @@ function updateCounters(): void {
         person.ageCounter.innerHTML = `
             <span style="font-size: 1.2em; font-weight: bold;">
             ${years}</span> <br>
+            <span style="font-size: 0.8em;">
             ${months} maande <br>
             ${days} dae <br>
             ${hours} ure <br>
             ${minutes} minute <br> 
-            ${secs} sekondes`;
+            ${secs} sekondes</span>`;
       }
     });
   }, 1000);
 }
-
+//------------------------------------------------------------------------------------------------------------------------------------------
 // Event listener for dropdown
 document.getElementById("sort-order")?.addEventListener("change", (e) => {
   const order = (e.target as HTMLSelectElement).value as
