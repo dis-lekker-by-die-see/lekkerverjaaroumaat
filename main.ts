@@ -208,8 +208,9 @@ function renderTable(order: "name" | "calendar" | "age"): void {
   people.forEach((person) => {
     const row = table.insertRow();
     // row.insertCell(0).textContent = person.name || "Unknown";
+    //  `<span style="font-size: 1em;">
     row.insertCell(0).innerHTML =
-      `<span style="font-size: 1em;">
+      `
         ${person.name}` || "Unknown";
     const dobCell = row.insertCell(1);
     dobCell.innerHTML = person.DOB
