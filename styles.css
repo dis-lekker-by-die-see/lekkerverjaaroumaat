@@ -12,8 +12,15 @@
   margin-top: 15px;
   margin-bottom: 0px;
 }
+#bottom-logo {
+  text-align: center; /* Center the logo */
+  /* margin: 20px -5px;  */
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
 
-#top-logo img {
+#top-logo img,
+#bottom-logo img {
   max-width: 100px; /* Adjust the size of the SVG */
   width: auto;
   height: auto;
@@ -243,7 +250,8 @@ tr:hover {
   .watermark {
     opacity: 0.4;
   }
-  #top-logo img {
+  #top-logo img,
+  #bottom-logo img {
     filter: brightness(0.8); /* Adjust brightness for logos */
   }
 
