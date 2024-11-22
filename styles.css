@@ -188,6 +188,11 @@ tr:hover {
 
 /* Responsive Design for Narrow Screens */
 @media (max-width: 500px) {
+  body {
+    overflow: auto; /* Allow body to scroll on small screens */
+    height: auto; /* Adjust height for scrolling */
+  }
+
   h1 {
     font-size: 1.3em;
   }
@@ -209,8 +214,12 @@ tr:hover {
   #table-container {
     /*max-height: 70vh; /* Limit height to 70% of the viewport */
     /* height: calc(100vh - 300px); */
-    height: calc(100vh - 375px);
+    /* height: calc(100vh - 375px); */
+
+    height: auto; /* Allow the table to grow with content */
+    overflow-y: visible; /* Remove scrolling for the table container */
   }
+
   table {
     /* font-size: 0.9em; */
     width: 95%; /* Reduce width slightly on narrow screens */
